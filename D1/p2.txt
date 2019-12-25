@@ -1,0 +1,19 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int mass, total = 0,sum=0;
+
+    while(cin >> mass) {
+    	while(mass/3 > 2){
+    		sum=mass/3-2;
+        	total += sum;
+        	mass=sum;
+    	}
+    }
+
+    cout << total << endl;
+    return 0;
+}

@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main()
+{
+	vector<int> v;
+	int input;
+	char comma;
+    while(cin>>input){
+    	v.push_back(input);
+    	cin>>comma;
+    }
+    v[1]=12;
+    v[2]=2;
+    for(int i=0;i<v.size()-4;i+=4){
+    	int x=v[i];
+    	if(x==1){
+    		v[v[i+3]]=v[v[i+1]]+v[v[i+2]];
+    	} else if(x==2){
+    		v[v[i+3]]=v[v[i+1]]*v[v[i+2]];
+    	} else
+    		break;
+    }
+    cout<<v[0]<<"\n";
+    return 0;
+}

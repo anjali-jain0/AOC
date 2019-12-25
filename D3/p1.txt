@@ -1,0 +1,62 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	
+  string l1, l2;
+  getline(cin, l1);
+  getline(cin, l2);
+
+  stringstream s1, s2;
+  s1 << l1;
+  s2 << l2;
+
+  vector< pair<char, int> > v1, v2;
+  string s;
+  while (getline(s1, s, ','))
+    {
+      v1.push_back({s.at(0), stoi(s.substr(1, s.length()-1))});
+    }
+  while (getline(s2, s, ','))
+    {
+      v2.push_back({s.at(0), stoi(s.substr(1, s.length()-1))});
+    }
+
+  set< pair<int, int> > t;
+  map< char, pair<int, int> > dis =
+    {{'R',{1,0}}, {'L',{-1,0}}, {'U',{0,1}}, {'D',{0,-1}}};
+
+  int x = 0, y = 0;
+  for (pair<char, int> p : v1)
+    {
+      pair<int, int> d = dis[p.first];
+      for (int i = p.second; i > 0; i-- )
+	{
+	  x += d.first;
+	  y += d.second;
+	  t.insert({x, y});
+	}
+    }
+
+  int sum = INT_MAX;
+  x = 0, y = 0;
+  for (pair<char, int> p : v2)
+    {
+      pair<int, int> d = dis[p.first];
+      for (int i = p.second; i > 0; i-- )
+	{
+	  x += d.first;
+	  y += d.second;
+
+	  pair<int, int> p = {x, y};
+	  if (t.find(p) != t.end())
+	    {
+	      sum = min(sum, abs(x) + abs(y));
+	    }
+	}
+    }
+
+  cout << sum << "\n";
+	
+	return 0;
+}

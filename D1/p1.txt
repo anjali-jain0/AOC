@@ -1,0 +1,15 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int mass, total = 0;
+
+    while(cin >> mass) {
+        total += mass / 3 - 2;
+    }
+
+    cout << total << endl;
+    return 0;
+}

@@ -1,0 +1,63 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int getMode(int n, int q, vector<int> v){
+	if(n==0)
+		return v[v[q]];
+	else
+		return v[q];
+}
+
+int input(){
+	return 1;
+}
+
+int main()
+{
+	vector<int> v;
+	int input;
+	char comma;
+	while(cin>>input){
+		v.push_back(input);
+		cin>>comma;
+	}
+	for(int i=0;i<v.size();i++){
+		int x=v[i];
+		if(x==99)
+			break;
+		int g=x%100;
+		if(g==1){
+			int v3=0;
+			int v1=getMode(x/100 % 10,i+1,v);
+			int v2=getMode(x/1000 % 10,i+2,v);
+			if(x/10000==1)
+				v3=getMode(x/10000 % 10,i+3,v);
+			else
+				v3=getMode(0,i+3,v);
+			v3=v1+v2;
+			i+=4;
+		} else if(g==2){
+			int v3=0;
+			int v1=getMode(x/100 % 10,i+1,v);
+			int v2=getMode(x/1000 % 10,i+2,v);
+			if(x/10000==1)
+				v3=getMode(x/10000 % 10,i+3,v);
+			else
+				v3=getMode(0,i+3,v);
+			v3=v1*v2;
+			i+=4;
+		} else if(g==3){
+			// int val;
+			// cin>>val;
+			int v1=getMode(x/100 % 10,i+1,v);
+			v1=1;
+			i+=2;
+		} else if(g==4){
+			int v1=getMode(x/100 % 10,i+1,v);
+			cout<<v1;
+			i+=2;
+		}
+	}
+    return 0;
+}
