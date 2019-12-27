@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	string s;
+	cin>>s;
+	long long int n=s.length(); 
+	int width=25;
+	int height=6;
+	long long int k=width*height;
+	long long int min=LONG_MAX;
+	long long int ans=0;
+	for(long long int j=0;j<n;j+=k){
+		long long int ct0=0,ct1=0,ct2=0;
+		for(long long int i=0;i<k;i++){
+			if(s[i+j]=='0')
+				ct0++;
+			else if(s[i+j]=='1')
+				ct1++;
+			else if(s[i+j]=='2')
+				ct2++;
+		}
+		if(ct0<min){
+			min=ct0;
+			ans=ct1*ct2;
+		}
+	}
+	cout<<ans<<"\n";
+	return 0;
+}
