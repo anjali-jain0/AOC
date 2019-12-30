@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	vector<pair<int,int>> v;
+	string s;
+	int y=0;
+	while(getline(cin,s)){
+		for(int x=0;x<s.length();x++){
+		if(s[x] == '#')	
+			v.push_back(make_pair(x,y));
+		}
+		y++;
+	}
+	map<pair<int,int>,set<long double>> m;
+	for(auto i : v){
+		for(auto j : v){
+			if(i==j) continue;
+			m[i].emplace(atan2(j.second-i.second,j.first-i.first));
+		}
+	}
+	
+	int max=INT_MIN;
+	for(auto i : m){
+		if(max < int(i.second.size()))
+			max=int(i.second.size());
+	}
+	cout<<max<<"\n";
+    
+    
+	return 0;
+}

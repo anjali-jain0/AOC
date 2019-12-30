@@ -1,0 +1,97 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int fn(vector<int> input, int a,int in){
+	int out=0;
+	deque<int> q;
+	q.push_back(a);
+	q.push_back(in);
+	int i = 0;
+    int p1, p2, p3, opcode;
+    while(i < input.size()) {
+        if(input[i] == 99) break;
+        opcode = input[i] % 10;
+        p1 = input[i] / 100 % 10;
+        p2 = input[i] / 1000 % 10;
+        p3 = input[i] / 10000 % 10;
+        switch(opcode){
+            case 1:
+ 				input[input[i+3]] = input[p1 ? i + 1: input[i+1]] + input[p2 ? i + 2: input[i+2]];
+                i += 4;
+                break;
+            case 2:
+                input[input[i+3]] = input[p1 ? i + 1: input[i+1]] * input[p2 ? i + 2: input[i+2]];
+                i += 4;
+                break;
+            case 3:
+                input[input[i+1]] = q.front();
+                q.pop_front();
+                i += 2;
+                break;
+            case 4:
+                if(input[i+2] == 99){
+                    out=input[input[i+1]];
+                }
+                i += 2;
+                break;
+            case 5:
+            	if(input[p1 ? i + 1: input[i+1]] != 0)
+            		i = input[p2 ? i + 2: input[i+2]];
+            	else
+            		i+=3;
+            	break;
+            case 6:
+            	if(input[p1 ? i + 1: input[i+1]] == 0)
+            		i = input[p2 ? i + 2: input[i+2]];
+            	else
+            		i+=3;
+            	break;
+            case 7:
+            	if(input[p1 ? i + 1: input[i+1]] < input[p2 ? i + 2: input[i+2]])
+            		input[input[i+3]]=1;
+            	else
+            		input[input[i+3]]=0;
+            	i+=4;
+            	break;
+            case 8:
+            	if(input[p1 ? i + 1: input[i+1]] == input[p2 ? i + 2: input[i+2]])
+            		input[input[i+3]]=1;
+            	else
+            		input[input[i+3]]=0;
+            	i+=4;
+            	break;
+            default:
+                i += 4;
+                break;
+        }
+    }
+	return out;
+}
+
+int main() {
+	vector<int> v;
+	string input;
+	getline(cin, input);
+	stringstream s1;
+	s1 << input;
+	string s;
+    while (getline(s1, s, ','))
+      v.push_back(stoi(s));
+    
+    int best=INT_MIN;
+    int out=0;
+    deque<int> v1={0,1,2,3,4};
+    do{
+    	deque<int> v2=v1;
+    	int in=0;
+    	while(v2.empty()==false){
+    		in=fn(v,v2.front(),in);
+    		v2.pop_front();
+    	}
+    	best=max(best,in);
+    } while(next_permutation(v1.begin(),v1.end()));
+      
+    cout<<best<<"\n";
+    
+	return 0;
+}
